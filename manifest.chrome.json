@@ -1,7 +1,10 @@
 {
     "manifest_version": 3,
     "name": "Doom-Tasks",
-    "version": "1.0",
+    "author": {
+        "email": "armaanandroid14@gmail.com"
+    },
+    "version": "1.0.0",
     "description": "Forces redirects to a specified webpage if the tasks are not completed.",
     "permissions": ["storage", "tabs", "webNavigation"],
     "background": {

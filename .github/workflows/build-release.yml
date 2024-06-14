@@ -1,0 +1,47 @@
+name: Build and Release Extension
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Chrome extension
+        run: |
+          cp manifest.chrome.json manifest.json
+          zip -r doom-tasks-chrome.zip . -x "*.git*" "manifest.*.json"
+          mkdir -p dist
+          mv doom-tasks-chrome.zip dist/
+
+      - name: Build Firefox extension
+        run: |
+          cp manifest.firefox.json manifest.json
+          zip -r doom-tasks-firefox.zip . -x "*.git*" "manifest.*.json"
+          mkdir -p dist
+          mv doom-tasks-firefox.zip dist/
+
+      - name: Upload Chrome extension ZIP
+        uses: actions/upload-artifact@v2
+        with:
+          name: doom-tasks-chrome
+          path: dist/doom-tasks-chrome.zip
+
+      - name: Upload Firefox extension ZIP
+        uses: actions/upload-artifact@v2
+        with:
+          name: doom-tasks-firefox
+          path: dist/doom-tasks-firefox.zip
