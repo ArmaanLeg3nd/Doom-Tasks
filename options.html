@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Doom-Tasks Options</title>
+  <style>
+    @font-face {
+      font-family: 'AmazDooMLeft';
+      src: url('./fonts/AmazDooMLeft.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'OpenSans-Regular';
+      src: url('./fonts/OpenSans-Regular.ttf') format('truetype');
+    }
+
+    body {
+      font-family: 'OpenSans-Regular', Arial, sans-serif;
+      line-height: 1.6;
+      padding: 20px;
+      background-color: #1c1c1c;
+      color: #f0f0f0;
+      font-size: 1em;
+    }
+
+    button {
+      transition-duration: 0.2s;
+      font-family: 'OpenSans-Regular', Arial, sans-serif;
+      font-weight: 400;
+    }
+
+    #ptitle {
+      font-family: 'AmazDooMLeft', Arial, sans-serif;
+      color: #ff4444;
+      font-size: 5em;
+    }
+
+    .task {
+      border: 1px solid #444;
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: #333;
+      border-radius: 5px;
+    }
+
+    .task label {
+      display: block;
+      margin-bottom: 5px;
+      color: #f0f0f0;
+    }
+
+    .task input[type="text"],
+    .task input[type="url"],
+    .task textarea {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+      border: 1px solid #444;
+      border-radius: 3px;
+      box-sizing: border-box;
+      font-size: 14px;
+      background-color: #2c2c2c;
+      color: #f0f0f0;
+    }
+
+    .task textarea {
+      height: 80px;
+    }
+
+    .task button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    .task button:hover {
+      background-color: #0056b3;
+    }
+
+    .btncont button {
+      background-color: rgb(189, 189, 189);
+      color: rgb(0, 0, 0);
+      border: none;
+      padding: 8px 16px;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    .btncont button:hover {
+      background-color: #e7e7e7;
+    }
+
+    #removeAllBtn {
+      margin-top: 20px;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 0.8em;
+      color: #888;
+      text-align: center;
+    }
+
+    footer a {
+      color: #888;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+    
+  </style>
+</head>
+
+<body>
+  <div id="ptitle">Options</div>
+  <div id="tasksContainer"></div>
+  <center>
+    <div class="btncont">
+      <button id="addTaskBtn">Add Task</button>&nbsp;&nbsp;
+      <button id="removeAllBtn">Remove All Tasks</button>
+    </div>
+  </center>
+  <footer>
+    <p>&copy; 2024 ArmaanLeg3nd. All rights reserved. | <a href="https://github.com/ArmaanLeg3nd" target="_blank">Visit my GitHub</a></p>
+  </footer>
+  <script src="options.js"></script>
+</body>
+
+</html>

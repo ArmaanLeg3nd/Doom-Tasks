@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Doom-Tasks</title>
+  <style>
+    @font-face {
+      font-family: 'AmazDooMLeft';
+      src: url('./fonts/AmazDooMLeft.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'OpenSans-Regular';
+      src: url('./fonts/OpenSans-Regular.ttf') format('truetype');
+    }
+
+    body {
+      font-family: 'OpenSans-Regular', Arial, sans-serif;
+      padding: 20px;
+      background-color: #1c1c1c;
+      color: #f0f0f0;
+      width: 400px;
+      font-size: 1em;
+    }
+
+    button {
+      transition-duration: 0.2s;
+      font-family: 'OpenSans-Regular', Arial, sans-serif;
+      font-weight: 400;
+    }
+
+    #ptitle {
+      font-family: 'AmazDooMLeft', Arial, sans-serif;
+      color: #ff4444;
+      font-size: 5em;
+    }
+
+    #ptitle a {
+      text-decoration: none;
+      color: #ff4444;
+    }
+
+    .task {
+      border: 1px solid #444;
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: #333;
+      border-radius: 5px;
+    }
+
+    .task label {
+      display: block;
+      margin-bottom: 5px;
+      color: #f0f0f0;
+    }
+
+    .task input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    .task button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 3px;
+      margin-right: 5px;
+    }
+
+    .task button:hover {
+      background-color: #0056b3;
+    }
+
+    .task .details {
+      margin-top: 10px;
+      font-size: 0.9em;
+      color: #ccc;
+    }
+
+    #toggleExtension {
+      margin-top: 20px;
+    }
+
+    #navigateOptions {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 20px;
+      display: block;
+      font-size: 1em;
+    }
+
+    #navigateOptions:hover {
+      background-color: #218838;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 0.8em;
+      color: #888;
+      text-align: center;
+    }
+
+    footer a {
+      color: #888;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="ptitle"><a href="https://armaanleg3nd.github.io/" target="_blank">DOOM-TASKS</a></div>
+  <label for="toggleExtension">
+    <input type="checkbox" id="toggleExtension"> Enable Extension
+  </label>
+  <br><br><br>
+  <div id="tasksContainer"></div>
+  <center><button id="navigateOptions">Options</button></center>
+  <footer>
+    <p>&copy; 2024 ArmaanLeg3nd. All rights reserved. | <a href="https://github.com/ArmaanLeg3nd" target="_blank">Visit my GitHub</a></p>
+  </footer>
+  <script src="popup.js"></script>
+</body>
+
+</html>
