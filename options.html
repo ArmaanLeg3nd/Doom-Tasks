@@ -93,6 +93,27 @@
       background-color: #e7e7e7;
     }
 
+    .error {
+      color: red;
+      font-size: 0.9em;
+    }
+
+    .info {
+      font-size: 0.9em;
+      color: #ff00ea;
+      border: 1px solid #444;
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: #333;
+      border-radius: 5px;
+    }
+
+    #infoHead {
+      font-size: 1.2em;
+      color: #ff00ea;
+      margin-bottom: 10px;
+    }
+
     #removeAllBtn {
       margin-top: 20px;
     }
@@ -112,12 +133,18 @@
     footer a:hover {
       text-decoration: underline;
     }
-    
   </style>
 </head>
 
 <body>
   <div id="ptitle">Options</div>
+  <div class="info">
+    <div id="infoHead">*Information</div>
+    <div>- Tasks are auto saved</div>
+    <div>- You can remove all tasks at once by the remove all tasks button</div>
+    <div>- Make sure that the current tasks' details are valid before adding a new one</div>
+  </div>
+  <br>
   <div id="tasksContainer"></div>
   <center>
     <div class="btncont">
