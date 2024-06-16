@@ -125,14 +125,14 @@ function validateUrl(inputElement, errorElementId) {
 }
 
 function validateIgnoredUrls(textareaElement, errorElementId) {
+  const urlsInput = textareaElement.value.trim() + ",";  // Declare urlsInput at the start
+
   if (urlsInput.length === 0) {
     // No URLs provided
     const errorElement = document.querySelector(errorElementId);
     errorElement.textContent = "";
     return true;
   }
-
-  const urlsInput = textareaElement.value.trim() + ",";
 
   const urls = urlsInput.split(",").map((url) => url.trim());
   const errorElement = document.querySelector(errorElementId);
@@ -165,6 +165,7 @@ function validateIgnoredUrls(textareaElement, errorElementId) {
 
   return allValid && !improperlySeparated;
 }
+
 
 function renderTasks(tasks) {
   tasksContainer.innerHTML = "";

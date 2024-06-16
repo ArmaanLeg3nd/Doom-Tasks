@@ -62,14 +62,18 @@ function handleTaskRedirects(details) {
         details.url.startsWith("moz-extension:");
       const isFileUrl = details.url.startsWith("file:");
 
+      // Extract main domains from detailsDomain and redirectDomain
+      const mainDetailsDomain = extractMainDomain(detailsDomain);
+      const mainRedirectDomain = extractMainDomain(redirectDomain);      
+
       const isIgnoredUrl = tasks.some((task) => {
-        const taskRedirectDomain = getDomainFromUrl(task.redirectUrl);
+        const taskRedirectDomain = extractMainDomain(getDomainFromUrl(task.redirectUrl));
         const taskIgnoredUrlsDomains = (task.ignoredUrls || []).map((url) =>
-          getDomainFromUrl(url)
+          extractMainDomain(getDomainFromUrl(url))
         );
         return (
-          detailsDomain === taskRedirectDomain ||
-          taskIgnoredUrlsDomains.includes(detailsDomain)
+          mainDetailsDomain === taskRedirectDomain ||
+          taskIgnoredUrlsDomains.includes(mainDetailsDomain)
         );
       });
 
@@ -82,10 +86,6 @@ function handleTaskRedirects(details) {
         !isIgnoredUrl &&
         !details.url.startsWith("https://github.com/ArmaanLeg3nd")
       ) {
-        // Extract main domains from detailsDomain and redirectDomain
-        const mainDetailsDomain = extractMainDomain(detailsDomain);
-        const mainRedirectDomain = extractMainDomain(redirectDomain);
-
         // Check if main domains match
         if (mainDetailsDomain !== mainRedirectDomain) {
           const frameId = details.frameId;
