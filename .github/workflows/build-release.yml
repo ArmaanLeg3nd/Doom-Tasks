@@ -47,17 +47,3 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: doom-tasks-firefox.zip
           asset_content_type: application/zip
-
-      - name: Publish Release
-        if: always()
-        uses: actions/github-script@v4
-        with:
-          script: |
-            const octokit = github.getOctokit('${{ secrets.GITHUB_TOKEN }}');
-            const release_id = ${{ steps.create_release.outputs.id }};
-            await octokit.rest.repos.updateRelease({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              release_id: release_id,
-              draft: false
-            });
