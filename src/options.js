@@ -11,56 +11,123 @@ function createTaskElement(task, index, totalTasks) {
   const taskElement = document.createElement("div");
   taskElement.classList.add("task");
 
-  taskElement.innerHTML = `
-    <label for="taskName${index}">Task Name:</label>
-    <input type="text" id="taskName${index}" value="${
-    task.name || ""
-  }" placeholder="Enter task name" required>
-    <br>
-    <label for="redirectUrl${index}">Redirect URL:</label>
-    <span class="error" id="redirectUrlError${index}"></span>
-    <input type="url" id="redirectUrl${index}" value="${
-    task.redirectUrl || ""
-  }" placeholder="Enter redirect URL" required>
-    <br>
-    <label for="ignoredUrls${index}">Ignored URLs (comma separated):</label>
-    <span class="error" id="ignoredUrlsError${index}"></span>
-    <textarea id="ignoredUrls${index}" placeholder="Enter ignored URLs separated by commas">${
-    task.ignoredUrls ? task.ignoredUrls.join(", ") : ""
-  }</textarea>
-    <br>
-    <label for="taskCompleted${index}">Task Completed: <input type="checkbox" id="taskCompleted${index}" ${
-    task.completed ? "checked" : ""
-  }></label>
-    <br>
-    <div>
-      <button class="moveUpBtn" ${
-        index === 0 ? "disabled" : ""
-      }>&#9650;</button>
-      <button class="moveDownBtn" ${
-        index === totalTasks - 1 ? "disabled" : ""
-      }>&#9660;</button>
-      &nbsp;<span>Priority: ${index + 1}</span>
-    </div>
-    <br>
-    <button class="removeTaskBtn">Remove Task</button>
-    <br><br>
-  `;
+  // Task Name Label
+  const taskNameLabel = document.createElement("label");
+  taskNameLabel.setAttribute("for", `taskName${index}`);
+  taskNameLabel.textContent = "Task Name:";
+  taskElement.appendChild(taskNameLabel);
+
+  // Task Name Input
+  const taskNameInput = document.createElement("input");
+  taskNameInput.type = "text";
+  taskNameInput.id = `taskName${index}`;
+  taskNameInput.value = task.name || "";
+  taskNameInput.placeholder = "Enter task name";
+  taskNameInput.required = true;
+  taskElement.appendChild(taskNameInput);
+
+  taskElement.appendChild(document.createElement("br"));
+
+  // Redirect URL Label
+  const redirectUrlLabel = document.createElement("label");
+  redirectUrlLabel.setAttribute("for", `redirectUrl${index}`);
+  redirectUrlLabel.textContent = "Redirect URL:";
+  taskElement.appendChild(redirectUrlLabel);
+
+  // Redirect URL Error Span
+  const redirectUrlError = document.createElement("span");
+  redirectUrlError.classList.add("error");
+  redirectUrlError.id = `redirectUrlError${index}`;
+  taskElement.appendChild(redirectUrlError);
+
+  // Redirect URL Input
+  const redirectUrlInput = document.createElement("input");
+  redirectUrlInput.type = "url";
+  redirectUrlInput.id = `redirectUrl${index}`;
+  redirectUrlInput.value = task.redirectUrl || "";
+  redirectUrlInput.placeholder = "Enter redirect URL";
+  redirectUrlInput.required = true;
+  taskElement.appendChild(redirectUrlInput);
+
+  taskElement.appendChild(document.createElement("br"));
+
+  // Ignored URLs Label
+  const ignoredUrlsLabel = document.createElement("label");
+  ignoredUrlsLabel.setAttribute("for", `ignoredUrls${index}`);
+  ignoredUrlsLabel.textContent = "Ignored URLs (comma separated):";
+  taskElement.appendChild(ignoredUrlsLabel);
+
+  // Ignored URLs Error Span
+  const ignoredUrlsError = document.createElement("span");
+  ignoredUrlsError.classList.add("error");
+  ignoredUrlsError.id = `ignoredUrlsError${index}`;
+  taskElement.appendChild(ignoredUrlsError);
+
+  // Ignored URLs Textarea
+  const ignoredUrlsTextarea = document.createElement("textarea");
+  ignoredUrlsTextarea.id = `ignoredUrls${index}`;
+  ignoredUrlsTextarea.placeholder = "Enter ignored URLs separated by commas";
+  ignoredUrlsTextarea.textContent = task.ignoredUrls ? task.ignoredUrls.join(", ") : "";
+  taskElement.appendChild(ignoredUrlsTextarea);
+
+  taskElement.appendChild(document.createElement("br"));
+
+  // Task Completed Label and Checkbox
+  const taskCompletedLabel = document.createElement("label");
+  taskCompletedLabel.setAttribute("for", `taskCompleted${index}`);
+  taskCompletedLabel.innerHTML = `Task Completed: <input type="checkbox" id="taskCompleted${index}" ${task.completed ? "checked" : ""}>`;
+  taskElement.appendChild(taskCompletedLabel);
+
+  taskElement.appendChild(document.createElement("br"));
+
+  // Move Buttons and Priority Span
+  const moveButtonsDiv = document.createElement("div");
+
+  const moveUpBtn = document.createElement("button");
+  moveUpBtn.classList.add("moveUpBtn");
+  moveUpBtn.innerHTML = "&#9650;";
+  moveUpBtn.disabled = index === 0;
+  moveButtonsDiv.appendChild(moveUpBtn);
+
+  let gap = document.createElement("span");
+  gap.innerHTML = "&nbsp;&nbsp;";
+  moveButtonsDiv.appendChild(gap);
+
+  const moveDownBtn = document.createElement("button");
+  moveDownBtn.classList.add("moveDownBtn");
+  moveDownBtn.innerHTML = "&#9660;";
+  moveDownBtn.disabled = index === totalTasks - 1;
+  moveButtonsDiv.appendChild(moveDownBtn);
+
+  const prioritySpan = document.createElement("span");
+  prioritySpan.innerHTML = `&nbsp;Priority: ${index + 1}`;
+  moveButtonsDiv.appendChild(prioritySpan);
+
+  taskElement.appendChild(moveButtonsDiv);
+
+  taskElement.appendChild(document.createElement("br"));
+
+  // Remove Task Button
+  const removeTaskBtn = document.createElement("button");
+  removeTaskBtn.classList.add("removeTaskBtn");
+  removeTaskBtn.textContent = "Remove Task";
+  taskElement.appendChild(removeTaskBtn);
+
+  taskElement.appendChild(document.createElement("br"));
+  taskElement.appendChild(document.createElement("br"));
 
   tasksContainer.appendChild(taskElement);
 
-  const removeTaskBtn = taskElement.querySelector(".removeTaskBtn");
+  // Event Listeners
   removeTaskBtn.addEventListener("click", () => {
     removeTask(index);
   });
 
-  const taskNameInput = taskElement.querySelector(`#taskName${index}`);
   taskNameInput.addEventListener("input", () => {
     task.name = taskNameInput.value;
     saveTasks();
   });
 
-  const redirectUrlInput = taskElement.querySelector(`#redirectUrl${index}`);
   redirectUrlInput.addEventListener("input", () => {
     task.redirectUrl = redirectUrlInput.value;
     saveTasks();
@@ -70,11 +137,8 @@ function createTaskElement(task, index, totalTasks) {
     validateUrl(redirectUrlInput, `#redirectUrlError${index}`);
   });
 
-  const ignoredUrlsTextarea = taskElement.querySelector(`#ignoredUrls${index}`);
   ignoredUrlsTextarea.addEventListener("input", () => {
-    task.ignoredUrls = ignoredUrlsTextarea.value
-      .split(",")
-      .map((url) => url.trim());
+    task.ignoredUrls = ignoredUrlsTextarea.value.split(",").map((url) => url.trim());
     saveTasks();
   });
 
@@ -82,22 +146,18 @@ function createTaskElement(task, index, totalTasks) {
     validateIgnoredUrls(ignoredUrlsTextarea, `#ignoredUrlsError${index}`);
   });
 
-  const taskCompletedCheckbox = taskElement.querySelector(
-    `#taskCompleted${index}`
-  );
+  const taskCompletedCheckbox = taskCompletedLabel.querySelector(`#taskCompleted${index}`);
   taskCompletedCheckbox.addEventListener("change", () => {
     task.completed = taskCompletedCheckbox.checked;
     saveTasks();
   });
 
-  const moveUpBtn = taskElement.querySelector(".moveUpBtn");
   moveUpBtn.addEventListener("click", () => {
     if (index > 0) {
       swapTasks(index, index - 1);
     }
   });
 
-  const moveDownBtn = taskElement.querySelector(".moveDownBtn");
   moveDownBtn.addEventListener("click", () => {
     if (index < totalTasks - 1) {
       swapTasks(index, index + 1);
