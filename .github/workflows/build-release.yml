@@ -18,23 +18,31 @@ jobs:
         with:
           node-version: '14'
 
-      - name: Install dependencies
-        run: npm install
-
       - name: Build Chrome extension
         run: |
           cp manifest.chrome.json manifest.json
-          zip -r ./doom-tasks-chrome.zip . -x "*.git*" "manifest.*.json" "assets/*" "README.md" "package(-lock)?.json"
+          zip -r ./doom-tasks-chrome.zip . -x "*.git*" "manifest.*.json" "assets/*" "README.md"
 
       - name: Build Firefox extension
         run: |
           cp manifest.firefox.json manifest.json
-          zip -r ./doom-tasks-firefox.zip . -x "*.git*" "manifest.*.json" "assets/*" "README.md" "package(-lock)?.json"
+          zip -r ./doom-tasks-firefox.zip . -x "*.git*" "manifest.*.json" "assets/*" "README.md"
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: true
+          prerelease: false
 
       - name: Upload Chrome extension ZIP to release
         uses: actions/upload-release-asset@v1
         with:
-          upload_url: ${{ github.event.release.upload_url }}
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: doom-tasks-chrome.zip
           asset_name: doom-tasks-chrome.zip
           asset_content_type: application/zip
@@ -44,9 +52,22 @@ jobs:
       - name: Upload Firefox extension ZIP to release
         uses: actions/upload-release-asset@v1
         with:
-          upload_url: ${{ github.event.release.upload_url }}
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: doom-tasks-firefox.zip
           asset_name: doom-tasks-firefox.zip
           asset_content_type: application/zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish Release
+        if: always()
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const { createOrUpdateRelease } = require('@actions/github').getOctokit('${{ secrets.GITHUB_TOKEN }}').rest.repos;
+            const release_id = ${{ steps.create_release.outputs.id }};
+            await createOrUpdateRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: release_id,
+              draft: false
+            });
