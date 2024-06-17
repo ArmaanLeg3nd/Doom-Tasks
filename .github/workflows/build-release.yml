@@ -53,9 +53,9 @@ jobs:
         uses: actions/github-script@v4
         with:
           script: |
-            const { createOrUpdateRelease } = require('@actions/github').getOctokit('${{ secrets.GITHUB_TOKEN }}').rest.repos;
+            const octokit = github.getOctokit('${{ secrets.GITHUB_TOKEN }}');
             const release_id = ${{ steps.create_release.outputs.id }};
-            await createOrUpdateRelease({
+            await octokit.rest.repos.updateRelease({
               owner: context.repo.owner,
               repo: context.repo.repo,
               release_id: release_id,
