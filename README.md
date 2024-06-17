@@ -18,6 +18,13 @@
   </br></br>
 </p>
 
+## Build Check
+
+<center> <img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/ArmaanLeg3nd/Doom-Tasks/build-release.yml">
+<img alt="GitHub Release" src="https://img.shields.io/github/v/release/ArmaanLeg3nd/Doom-Tasks?display_name=tag">
+
+</center>
+
 ## Description
 <div style="text-align: justify">
 Doom Tasks is a browser extension which helps you staying focused by forcing you to remain on certain web pages by redirecting you to a set URL until the task is complete. The tasks can be configured along with the redirection URL and ignore URL(s) by clicking on the extension icon which will open the popup and then clicking on the options button. Priority of the tasks can also be configured in the options or the extension popup. To enable the extension, on the popup, check the enable extension check-box. To set a task as complete, click on the extension popup and check the task as complete. The extension will then start redirecting you to the next task in the list. The extension will keep redirecting you to the set URL until all the tasks are complete. The extension will also keep track of the tasks completed and the tasks remaining. The extension will ignore the other task's redirect and ignored URL(s) and won't apply redirection logic to them.

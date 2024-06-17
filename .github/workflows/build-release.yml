@@ -23,12 +23,12 @@ jobs:
       - name: Build Chrome extension
         run: |
           cp manifest.chrome.json manifest.json
-          zip -r ./doom-tasks-chrome.zip . -x "*.git*" "manifest.*.json" "assets/*" "README.md"
+          zip -r ./doom-tasks-chrome.zip . -x "*.git*" "manifest.*.json" "assets/*" "README.md" "doom-tasks-firefox.zip"
 
       - name: Build Firefox extension
         run: |
           cp manifest.firefox.json manifest.json
-          zip -r ./doom-tasks-firefox.zip . -x "*.git*" "manifest.*.json" "assets/*" "README.md"
+          zip -r ./doom-tasks-firefox.zip . -x "*.git*" "manifest.*.json" "assets/*" "README.md" "doom-tasks-chrome.zip"
 
       - name: Create a Release
         id: create_release
