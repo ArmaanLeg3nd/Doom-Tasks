@@ -22,17 +22,13 @@ jobs:
 
       - name: Build Chrome extension
         run: |
-          cp src/manifest.chrome.json src/manifest.json
-          cd src
-          zip -r ../doom-tasks-chrome.zip . -x "*.git*" "manifest.*.json" "assets/*" "README.md"
-          cd ..
+          cp manifest.chrome.json manifest.json
+          zip -r ./doom-tasks-chrome.zip . -x "*.git*" "manifest.*.json" "assets/*" "README.md"
 
       - name: Build Firefox extension
         run: |
-          cp src/manifest.firefox.json src/manifest.json
-          cd src
-          zip -r ../doom-tasks-firefox.zip . -x "*.git*" "manifest.*.json" "assets/*" "README.md"
-          cd ..
+          cp manifest.firefox.json manifest.json
+          zip -r ./doom-tasks-firefox.zip . -x "*.git*" "manifest.*.json" "assets/*" "README.md"
 
       - name: Upload Chrome extension ZIP to release
         uses: actions/upload-release-asset@v1
