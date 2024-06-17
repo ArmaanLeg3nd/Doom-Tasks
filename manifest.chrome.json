@@ -1,18 +1,18 @@
 {
     "manifest_version": 3,
-    "name": "Doom-Tasks",
+    "name": "Doom Tasks",
     "author": {
         "email": "armaanandroid14@gmail.com"
     },
     "version": "1.0.0",
-    "description": "Forces redirects to a specified webpage if the tasks are not completed.",
+    "description": "Getting Distracted? Doom Tasks forces you to complete your tasks before you can browse the web!",
     "permissions": ["storage", "tabs", "webNavigation"],
     "background": {
-      "service_worker": "background.js"
+      "service_worker": "src/background.js"
     },
-    "options_page": "options.html",
+    "options_page": "src/options.html",
     "action": {
-      "default_popup": "popup.html",
+      "default_popup": "src/popup.html",
       "default_icon": {
         "16": "icons/icon16.png",
         "48": "icons/icon48.png",

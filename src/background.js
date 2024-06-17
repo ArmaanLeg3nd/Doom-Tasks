@@ -25,6 +25,7 @@ webNavigation.onCommitted.addListener((details) => {
 });
 
 function getDomainFromUrl(url) {
+  if (!url) return null;
   try {
     const urlObj = new URL(url);
     return urlObj.hostname;
@@ -36,11 +37,17 @@ function getDomainFromUrl(url) {
 
 // Extract main domain from URL
 function extractMainDomain(url) {
-  let domain = url.replace(/^(?:www\.)?([^:/\n?]+).*/i, "$1");
-  return domain;
+  if (!url) return null;
+  try {
+    const domain = url.replace(/^(?:https?:\/\/)?(?:www\.)?([^:/\n?]+).*/i, "$1");
+    return domain;
+  } catch (error) {
+    console.error("Error extracting main domain:", error);
+    return null;
+  }
 }
 
-function handleTaskRedirects(details) {
+function handleTaskRedirects(details = {}) {
   storage.get(["tasks", "extensionEnabled"], (data) => {
     if (!data.extensionEnabled) {
       return;
@@ -57,14 +64,13 @@ function handleTaskRedirects(details) {
       const isLocalhost =
         detailsDomain === "localhost" || detailsDomain === "127.0.0.1";
       const isBrowserInternalUrl =
-        details.url.startsWith("chrome:") ||
+        details.url && (details.url.startsWith("chrome:") ||
         details.url.startsWith("chrome-extension:") ||
-        details.url.startsWith("moz-extension:");
-      const isFileUrl = details.url.startsWith("file:");
+        details.url.startsWith("moz-extension:"));
+      const isFileUrl = details.url && details.url.startsWith("file:");
 
-      // Extract main domains from detailsDomain and redirectDomain
       const mainDetailsDomain = extractMainDomain(detailsDomain);
-      const mainRedirectDomain = extractMainDomain(redirectDomain);      
+      const mainRedirectDomain = extractMainDomain(redirectDomain);
 
       const isIgnoredUrl = tasks.some((task) => {
         const taskRedirectDomain = extractMainDomain(getDomainFromUrl(task.redirectUrl));
@@ -77,16 +83,15 @@ function handleTaskRedirects(details) {
         );
       });
 
-      // Apply the redirection logic if it isn't a localhost, browser internal url, file url, ignored URL or the developer profile url
       if (
         redirectDomain &&
         !isLocalhost &&
         !isBrowserInternalUrl &&
         !isFileUrl &&
         !isIgnoredUrl &&
+        details.url &&
         !details.url.startsWith("https://github.com/ArmaanLeg3nd")
       ) {
-        // Check if main domains match
         if (mainDetailsDomain !== mainRedirectDomain) {
           const frameId = details.frameId;
           const parentFrameId = details.parentFrameId;
