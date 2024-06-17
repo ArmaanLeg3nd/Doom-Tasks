@@ -33,7 +33,7 @@ The goal of this project is to improve our productivity by helping us stay focus
 
 ## Doom Tasks in Action
 
-
+https://github.com/ArmaanLeg3nd/Doom-Tasks/assets/92618692/dba2d8aa-5913-40d2-9eb5-6c55b46808e3
 
 ## Screenshots
 
@@ -41,8 +41,6 @@ The goal of this project is to improve our productivity by helping us stay focus
   <img src="./assets/popup.png">
   <img src="./assets/options.png">
 </p>
-
-
 
 ## Found a Bug?
 
