@@ -22,26 +22,30 @@ jobs:
 
       - name: Build Chrome extension
         run: |
-          cp manifest.chrome.json manifest.json
-          zip -r doom-tasks-chrome.zip . -x "*.git*" "manifest.*.json"
-          mkdir -p dist
-          mv doom-tasks-chrome.zip dist/
+          cp src/manifest.chrome.json src/manifest.json
+          cd src
+          zip -r ../doom-tasks-chrome.zip . -x "*.git*" "manifest.*.json" "assets/*" "README.md"
+          cd ..
 
       - name: Build Firefox extension
         run: |
-          cp manifest.firefox.json manifest.json
-          zip -r doom-tasks-firefox.zip . -x "*.git*" "manifest.*.json"
-          mkdir -p dist
-          mv doom-tasks-firefox.zip dist/
+          cp src/manifest.firefox.json src/manifest.json
+          cd src
+          zip -r ../doom-tasks-firefox.zip . -x "*.git*" "manifest.*.json" "assets/*" "README.md"
+          cd ..
 
-      - name: Upload Chrome extension ZIP
-        uses: actions/upload-artifact@v2
+      - name: Upload Chrome extension ZIP to release
+        uses: actions/upload-release-asset@v1
         with:
-          name: doom-tasks-chrome
-          path: dist/doom-tasks-chrome.zip
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: doom-tasks-chrome.zip
+          asset_name: doom-tasks-chrome.zip
+          asset_content_type: application/zip
 
-      - name: Upload Firefox extension ZIP
-        uses: actions/upload-artifact@v2
+      - name: Upload Firefox extension ZIP to release
+        uses: actions/upload-release-asset@v1
         with:
-          name: doom-tasks-firefox
-          path: dist/doom-tasks-firefox.zip
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: doom-tasks-firefox.zip
+          asset_name: doom-tasks-firefox.zip
+          asset_content_type: application/zip
