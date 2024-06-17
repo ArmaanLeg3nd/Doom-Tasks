@@ -32,20 +32,29 @@ jobs:
 
       - name: Create a Release
         id: create_release
-        uses: shogo82148/actions-create-release@v1
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: true
+          prerelease: false
 
-      - name: Upload Assets
-        uses: shogo82148/actions-upload-release-asset@v1
+      - name: Upload Chrome extension ZIP to release
+        uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: doom-tasks-chrome.zip
+          asset_name: doom-tasks-chrome.zip
           asset_content_type: application/zip
 
-      - name: Upload Assets
-        uses: shogo82148/actions-upload-release-asset@v1
+      - name: Upload Firefox extension ZIP to release
+        uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: doom-tasks-firefox.zip
+          asset_name: doom-ttasks-firefox.zip
           asset_content_type: application/zip
 
       - name: Publish Release
@@ -53,9 +62,9 @@ jobs:
         uses: actions/github-script@v4
         with:
           script: |
-            const { createOrUpdateRelease } = require('@actions/github').getOctokit('${{ secrets.GITHUB_TOKEN }}').rest.repos;
+            const octokit = require('@actions/github').getOctokit('${{ secrets.GITHUB_TOKEN }}');
             const release_id = ${{ steps.create_release.outputs.id }};
-            await createOrUpdateRelease({
+            await octokit.rest.repos.updateRelease({
               owner: context.repo.owner,
               repo: context.repo.repo,
               release_id: release_id,
