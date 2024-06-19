@@ -3,7 +3,7 @@
 
 <p align="center">
   </br>
-  <a href="">
+  <a href="https://chromewebstore.google.com/detail/doom-tasks/fchamnngebddonmbdjhppccnjmadponn">
     <picture>
       <source srcset="https://i.imgur.com/XBIE9pk.png" media="(prefers-color-scheme: dark)">
       <img height="58" src="https://i.imgur.com/oGxig2F.png" alt="Chrome Web Store"></picture></a>
