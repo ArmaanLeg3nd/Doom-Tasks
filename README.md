@@ -11,7 +11,7 @@
     <picture>
       <source srcset="https://i.imgur.com/ZluoP7T.png" media="(prefers-color-scheme: dark)">
       <img height="58" src="https://i.imgur.com/4PobQqE.png" alt="Firefox add-ons"></picture></a>
-  <a href="">
+  <a href="https://microsoftedge.microsoft.com/addons/detail/doom-tasks/ibcjbmaahaeggobafhjfhjgndnfehnjl">
     <picture>
       <source srcset="https://i.imgur.com/Jog9cQP.png" media="(prefers-color-scheme: dark)">
       <img height="58" src="https://i.imgur.com/aiprUt8.png" alt="Microsoft Store"></picture></a>
